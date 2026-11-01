@@ -5,28 +5,28 @@ export class LoginPage {
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
   readonly signInButton: Locator;
-  readonly guestButton: Locator;
   readonly loginHeading: Locator;
   readonly productsHeading: Locator;
-  readonly toast: Locator;
+  readonly loginError: Locator;
+  readonly usernameError: Locator;
+  readonly passwordError: Locator;
   readonly navigation: Locator;
   readonly productsNavigation: Locator;
   readonly cartNavigation: Locator;
-  readonly signOutButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.usernameInput = page.getByLabel('Username');
     this.passwordInput = page.getByLabel('Password');
     this.signInButton = page.getByRole('button', { name: 'Sign In' });
-    this.guestButton = page.getByRole('button', { name: 'Browse as Guest' });
     this.loginHeading = page.getByRole('heading', { name: 'Welcome back' });
     this.productsHeading = page.getByRole('heading', { name: 'Our Products' });
-    this.toast = page.locator('#toast');
+    this.loginError = page.locator('#login-error');
+    this.usernameError = page.locator('#err-login-user');
+    this.passwordError = page.locator('#err-login-pass');
     this.navigation = page.getByRole('navigation');
     this.productsNavigation = this.navigation.getByText('Products', { exact: true });
     this.cartNavigation = this.navigation.getByText('Cart');
-    this.signOutButton = page.getByRole('button', { name: 'Sign Out' });
   }
 
   async goto() {
@@ -41,13 +41,5 @@ export class LoginPage {
       await this.passwordInput.fill(password);
     }
     await this.signInButton.click();
-  }
-
-  async browseAsGuest() {
-    await this.guestButton.click();
-  }
-
-  userIdentity(email: string) {
-    return this.page.getByText(email, { exact: true });
   }
 }

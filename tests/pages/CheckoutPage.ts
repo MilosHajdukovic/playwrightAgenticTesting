@@ -4,7 +4,10 @@ export class CheckoutPage {
   readonly page: Page;
   readonly checkoutHeading: Locator;
   readonly placeOrderButton: Locator;
-  readonly toast: Locator;
+  readonly checkoutError: Locator;
+  readonly firstNameError: Locator;
+  readonly expiryError: Locator;
+  readonly cvvError: Locator;
   readonly confirmationHeading: Locator;
   readonly orderReference: Locator;
 
@@ -23,9 +26,12 @@ export class CheckoutPage {
     this.page = page;
     this.checkoutHeading = page.getByRole('heading', { name: 'Checkout' });
     this.placeOrderButton = page.getByRole('button', { name: 'Place Order' });
-    this.toast = page.locator('#toast');
-    this.confirmationHeading = page.getByRole('heading', { name: 'Order Placed!' });
-    this.orderReference = page.getByText(/order reference/i);
+    this.checkoutError = page.locator('#checkout-error');
+    this.firstNameError = page.locator('#err-firstname');
+    this.expiryError = page.locator('#err-expiry');
+    this.cvvError = page.locator('#err-cvv');
+    this.confirmationHeading = page.getByRole('heading', { name: 'Order Confirmed!' });
+    this.orderReference = page.locator('#confirm-order-num');
 
     this.firstNameInput = page.locator('#co-firstname');
     this.lastNameInput = page.locator('#co-lastname');

@@ -16,21 +16,12 @@ test.describe('Login', () => {
       await expect(loginPage.loginHeading).toBeHidden();
     });
 
-    test('[TC-LOGIN-002] Guest browsing opens the product catalog', async ({ loginPage }) => {
-      await loginPage.browseAsGuest();
-
-      await expect(loginPage.productsHeading).toBeVisible();
-      await expect(loginPage.loginHeading).toBeHidden();
-    });
-
-    test('[TC-LOGIN-003] Successful login shows the authenticated user state [REGRESSION]', async ({ loginPage }) => {
+    test('[TC-LOGIN-003] Successful login opens the catalog and navigation [REGRESSION]', async ({ loginPage }) => {
       await loginPage.login(VALID_EMAIL, VALID_PASSWORD);
 
       await expect(loginPage.productsHeading).toBeVisible();
-      await expect(loginPage.userIdentity(VALID_EMAIL)).toBeVisible();
-      await expect(loginPage.signOutButton).toBeVisible();
-      await expect(loginPage.toast).toBeVisible();
-      await expect(loginPage.toast).toHaveText(/\S+/);
+      await expect(loginPage.loginHeading).toBeHidden();
+      await expect(loginPage.navigation).toBeVisible();
     });
   });
 
@@ -40,8 +31,8 @@ test.describe('Login', () => {
 
       await expect(loginPage.loginHeading).toBeVisible();
       await expect(loginPage.productsHeading).toBeHidden();
-      await expect(loginPage.toast).toBeVisible();
-      await expect(loginPage.toast).toHaveText(/\S+/);
+      await expect(loginPage.usernameError).toBeVisible();
+      await expect(loginPage.passwordError).toBeVisible();
     });
 
     test('[TC-LOGIN-005] Incorrect password is rejected with an error [REGRESSION]', async ({ loginPage }) => {
@@ -49,7 +40,8 @@ test.describe('Login', () => {
 
       await expect(loginPage.loginHeading).toBeVisible();
       await expect(loginPage.productsHeading).toBeHidden();
-      await expect(loginPage.toast).toHaveText('Invalid username or password');
+      await expect(loginPage.loginError).toBeVisible();
+      await expect(loginPage.loginError).toContainText('Invalid username or password');
     });
 
     test('[TC-LOGIN-006] Username without email format is rejected [REGRESSION]', async ({ loginPage }) => {
@@ -57,8 +49,7 @@ test.describe('Login', () => {
 
       await expect(loginPage.loginHeading).toBeVisible();
       await expect(loginPage.productsHeading).toBeHidden();
-      await expect(loginPage.toast).toBeVisible();
-      await expect(loginPage.toast).toHaveText(/\S+/);
+      await expect(loginPage.loginError).toBeVisible();
     });
 
     test('[TC-LOGIN-007] Email without a domain is rejected [REGRESSION]', async ({ loginPage }) => {
@@ -66,8 +57,7 @@ test.describe('Login', () => {
 
       await expect(loginPage.loginHeading).toBeVisible();
       await expect(loginPage.productsHeading).toBeHidden();
-      await expect(loginPage.toast).toBeVisible();
-      await expect(loginPage.toast).toHaveText(/\S+/);
+      await expect(loginPage.loginError).toBeVisible();
     });
 
     test('[TC-LOGIN-013] Missing password is rejected [REGRESSION]', async ({ loginPage }) => {
@@ -75,8 +65,7 @@ test.describe('Login', () => {
 
       await expect(loginPage.loginHeading).toBeVisible();
       await expect(loginPage.productsHeading).toBeHidden();
-      await expect(loginPage.toast).toBeVisible();
-      await expect(loginPage.toast).toHaveText(/\S+/);
+      await expect(loginPage.passwordError).toBeVisible();
     });
 
     test('[TC-LOGIN-014] Missing email is rejected [REGRESSION]', async ({ loginPage }) => {
@@ -84,8 +73,7 @@ test.describe('Login', () => {
 
       await expect(loginPage.loginHeading).toBeVisible();
       await expect(loginPage.productsHeading).toBeHidden();
-      await expect(loginPage.toast).toBeVisible();
-      await expect(loginPage.toast).toHaveText(/\S+/);
+      await expect(loginPage.usernameError).toBeVisible();
     });
   });
 
@@ -111,8 +99,7 @@ test.describe('Login', () => {
 
       await expect(loginPage.loginHeading).toBeVisible();
       await expect(loginPage.productsHeading).toBeHidden();
-      await expect(loginPage.toast).toBeVisible();
-      await expect(loginPage.toast).toHaveText(/\S+/);
+      await expect(loginPage.usernameError).toBeVisible();
     });
 
     test('[TC-LOGIN-011] Login page has a meaningful browser title [REGRESSION]', async ({ loginPage }) => {

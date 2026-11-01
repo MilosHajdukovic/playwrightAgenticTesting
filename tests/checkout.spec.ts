@@ -31,8 +31,8 @@ test.describe('Checkout', () => {
     await checkoutPage.placeOrderButton.click();
 
     await expect(checkoutPage.confirmationHeading).toBeHidden();
-    await expect(checkoutPage.toast).toBeVisible();
-    await expect(checkoutPage.toast).toHaveText(/\S+/);
+    await expect(checkoutPage.checkoutError).toBeVisible();
+    await expect(checkoutPage.expiryError).toBeVisible();
   });
 
   test('[TC-CHECKOUT-011] Checkout rejects letters or symbols in the CVV [REGRESSION]', async ({ page }) => {
@@ -42,8 +42,8 @@ test.describe('Checkout', () => {
     await checkoutPage.placeOrderButton.click();
 
     await expect(checkoutPage.confirmationHeading).toBeHidden();
-    await expect(checkoutPage.toast).toBeVisible();
-    await expect(checkoutPage.toast).toHaveText(/\S+/);
+    await expect(checkoutPage.checkoutError).toBeVisible();
+    await expect(checkoutPage.cvvError).toBeVisible();
   });
 
   test('[TC-CHECKOUT-004] Checkout rejects an empty form [REGRESSION]', async ({ page }) => {
@@ -51,8 +51,8 @@ test.describe('Checkout', () => {
     await checkoutPage.placeOrderButton.click();
 
     await expect(checkoutPage.confirmationHeading).toBeHidden();
-    await expect(checkoutPage.toast).toBeVisible();
-    await expect(checkoutPage.toast).toHaveText(/\S+/);
+    await expect(checkoutPage.checkoutError).toBeVisible();
+    await expect(checkoutPage.firstNameError).toBeVisible();
   });
 
   test('[TC-CHECKOUT-001] Order confirmation includes an order reference [REGRESSION]', async ({ page }) => {
@@ -61,6 +61,6 @@ test.describe('Checkout', () => {
     await checkoutPage.placeOrderButton.click();
 
     await expect(checkoutPage.confirmationHeading).toBeVisible();
-    await expect(checkoutPage.orderReference).toBeVisible();
+    await expect(checkoutPage.orderReference).toHaveText(/^Order TS-\d{6}$/);
   });
 });

@@ -331,6 +331,20 @@ function formatExpiry(input) {
   input.value = val;
 }
 
+function isValidExpiry(value) {
+  const match = value.trim().match(/^(\d{2})\/(\d{2})$/);
+  if (!match) return false;
+
+  const month = Number(match[1]);
+  const year = 2000 + Number(match[2]);
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
+
+  return month >= 1 && month <= 12
+    && (year > currentYear || (year === currentYear && month >= currentMonth));
+}
+
 function fixedPlaceOrder() {
   let valid = true;
   const checks = [
@@ -342,7 +356,7 @@ function fixedPlaceOrder() {
     { id: 'co-email',     errId: 'err-email',      test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
     { id: 'co-phone',     errId: 'err-phone',      test: v => /^[\d\s\-\+\(\)]{7,20}$/.test(v.trim()) },
     { id: 'co-card',      errId: 'err-card',       test: v => v.replace(/\s/g, '').length === 16 },
-    { id: 'co-expiry',    errId: 'err-expiry',     test: v => /^\d{2}\/\d{2}$/.test(v.trim()) },
+    { id: 'co-expiry',    errId: 'err-expiry',     test: isValidExpiry },
     { id: 'co-cvv',       errId: 'err-cvv',        test: v => /^\d{3,4}$/.test(v.trim()) },
   ];
 
