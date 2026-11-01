@@ -46,7 +46,7 @@ let lastOrder = null;
 /* ══════════════════════════════════════════
    NAVIGATION
 ══════════════════════════════════════════ */
-let isLoggedIn = false;
+let isLoggedIn = sessionStorage.getItem('techshopLoggedIn') === 'true';
 
 const PAGES = ['login', 'products', 'cart', 'checkout', 'confirm'];
 const PROTECTED = ['products', 'cart', 'checkout', 'confirm'];
@@ -97,7 +97,7 @@ function markInput(id, hasError) {
 /* ══════════════════════════════════════════
    LOGIN
 ══════════════════════════════════════════ */
-const VALID_USERS = ['admin', 'demo@techshop.com'];
+const VALID_USERS = ['demo@techshop.com'];
 
 function fixedLogin() {
   const user = document.getElementById('login-user').value.trim();
@@ -123,6 +123,7 @@ function fixedLogin() {
 
   document.getElementById('login-error').classList.add('hidden');
   isLoggedIn = true;
+  sessionStorage.setItem('techshopLoggedIn', 'true');
   showPage('products');
 }
 
@@ -412,4 +413,4 @@ function renderConfirmationPage() {
 /* ══════════════════════════════════════════
    INIT
 ══════════════════════════════════════════ */
-showPage('login');
+showPage(isLoggedIn ? 'products' : 'login');

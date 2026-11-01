@@ -1,0 +1,26 @@
+{
+  "name": "playwrightagentictesting",
+  "version": "1.0.0",
+  "description": "Resources for the Udemy course. Everything you need to follow along is in this repo.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MilosHajdukovic/playwrightAgenticTesting.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MilosHajdukovic/playwrightAgenticTesting/issues"
+  },
+  "homepage": "https://github.com/MilosHajdukovic/playwrightAgenticTesting#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.5"
+  }
+}
